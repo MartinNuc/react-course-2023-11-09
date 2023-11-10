@@ -4,6 +4,7 @@ import { Counter } from './counter';
 import { Table } from './table'
 import { RandomNumbers } from './RandomNumbers';
 import { MousePosition } from './mouse-position';
+import { AutomaticCounter } from './automatic-counter';
 
 function App() {
   const array = [1,2,3,4,5,6,7,8,9,10,11,12];
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <>
+      <AutomaticCounter />
       <MousePosition />
       <Counter />
       <RandomNumbers pregeneratedCount={5} />
