@@ -8,23 +8,29 @@ type JokeResponse = {
 export function useJoke() {
   const [joke, setJoke] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
+  const [shouldFetchNew, setShouldFetchNew] = useState(false);
 
   useEffect(() => {
-    const controller = fetchJoke();
-
-    return () => controller.abort();
+    setShouldFetchNew(true);
   }, []);
 
-  function fetchJoke() {
+  useEffect(() => {
+    if (!shouldFetchNew) { return; }
+
     const controller = new AbortController();
     setIsLoading(true);
     axios.get<JokeResponse>('https://api.chucknorris.io/jokes/random', {
       signal: controller.signal
     })
       .then(response => setJoke(response.data.value))
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoading(false))
+      .finally(() => setShouldFetchNew(false));
 
-    return controller;
+    return () => controller.abort();
+  }, [shouldFetchNew]);
+
+  function fetchJoke() {
+    setShouldFetchNew(true);
   }
 
   return {
