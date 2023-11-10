@@ -5,8 +5,8 @@ type Props = {
 }
 
 export function RandomNumbers({ pregeneratedCount }: Props) {
-  const [numbers, setNumbers] = useState<number[]>(
-    [...Array(pregeneratedCount)].map(() => Math.random())
+  const [numbers, setNumbers] = useState(
+    () => [...Array(pregeneratedCount)].map(() => Math.random())
   );
 
   function addNewRandomNumber() {
@@ -21,6 +21,7 @@ export function RandomNumbers({ pregeneratedCount }: Props) {
           <li key={n}>{n}</li>
         ))}
       </ul>
+      
       <button onClick={addNewRandomNumber}>new number</button>
     </>
   )

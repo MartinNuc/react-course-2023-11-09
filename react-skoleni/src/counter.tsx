@@ -1,14 +1,16 @@
 import { useState } from "react";
 
-export function Counter(props) {
+export function Counter() {
   const [counter, setCounter] = useState(0);
   
-  const handleClick = (e) => {
+  const handleClick = () => {
     setCounter(counter + 1);
   }
 
   return (
-    <button onClick={handleClick}>
+    <button style={{
+      textAlign: 'center'
+    }} className={counter > 5 ? 'red' : 'green'} onClick={handleClick}>
       {counter}
     </button>
   )
